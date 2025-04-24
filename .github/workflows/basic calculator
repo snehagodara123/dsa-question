@@ -1,0 +1,41 @@
+class Solution {
+    int i=0;
+    public int calculate(String s) {
+        int res=0;
+        int sign=1;
+        int num=0;
+        while(i<s.length()){
+            char ch=s.charAt(i);
+            if(ch=='('){
+                i++;
+                num=calculate(s);
+            }
+            else if(ch==')'){
+                res+=num*sign;
+                i++;
+                return res;
+            }
+            else if(Character.isDigit(ch)){
+                num=0;
+                while(i<s.length() && Character.isDigit(s.charAt(i))){
+                    num=num*10+(s.charAt(i)-'0');
+                    i++;
+                }
+            }
+            else if(ch=='-'){
+                res+=num*sign;
+                sign=-1;
+                i++;
+            }
+            else if(ch=='+'){
+                res+=num*sign;
+                sign=1;
+                i++;
+            }
+            else{
+                i++;
+            }
+        }
+        return res+=num*sign;
+    }
+}
